@@ -189,8 +189,8 @@ class FileRepresenter{
             fileContent += ". All rights reserved.\n"
         }
         
-        fileContent += "//\tModel file generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport"
-        
+        //fileContent += "//\tModel file generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport"
+        /*
         if let langAuthor = lang.author{
             fileContent += "\n\n//\tThe \"\(lang.displayLangName!)\" support has been made available by \(langAuthor.name!)"
             if let email = langAuthor.email{
@@ -202,7 +202,7 @@ class FileRepresenter{
             }
             
         }
-        
+        */
         
         fileContent += "\n\n"
     }
