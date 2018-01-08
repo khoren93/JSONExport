@@ -5,3 +5,31 @@ JSONExport.xcodeproj/xcuserdata/ahmed.xcuserdatad/xcdebugger/Breakpoints_v2.xcbk
 JSONExport.xcodeproj/project.xcworkspace/xcuserdata/ahmedali.xcuserdatad/UserInterfaceState.xcuserstate
 JSONExport.xcodeproj/xcuserdata/ahmedali.xcuserdatad/xcschemes/JSONExport.xcscheme
 JSONExport.xcodeproj/xcuserdata/ahmedali.xcuserdatad/xcschemes/xcschememanagement.plist
+
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+
+## Other
+*.moved-aside
+*.xcuserstate
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
