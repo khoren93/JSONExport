@@ -189,8 +189,6 @@ class FileRepresenter{
             fileContent += ". All rights reserved.\n"
         }
         
-        fileContent += "//\tModel file generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport"
-        
         if let langAuthor = lang.author{
             fileContent += "\n\n//\tThe \"\(lang.displayLangName!)\" support has been made available by \(langAuthor.name!)"
             if let email = langAuthor.email{
@@ -203,8 +201,7 @@ class FileRepresenter{
             
         }
         
-        
-        fileContent += "\n\n"
+        fileContent += "\n"
     }
     
     /**
@@ -304,7 +301,7 @@ class FileRepresenter{
         if !includeConstructors{
             return
         }
-        fileContent += "\n"
+//        fileContent += "\n"
         for constructor in lang.constructors{
             if constructor.comment != nil{
                 fileContent += constructor.comment
