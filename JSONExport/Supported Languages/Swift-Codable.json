@@ -80,25 +80,25 @@
                      "fetchBasicTypeWithSpecialNeedsPropertyFromMap": "",
                      "bodyStart": "{\n",
                      "body": "",
-                     "bodyEnd": "\t}\n",
-                     "fetchBasicTypePropertyFromMap": "\t\tcase <!VarName!> = \"<!JsonKeyName!>\"\n",
+                     "bodyEnd": "\t}",
+                     "fetchBasicTypePropertyFromMap": "\t\tcase <!JsonKeyName!>\n",
                      "signature": "\tenum CodingKeys: String, CodingKey ",
-                     "fetchArrayOfCustomTypePropertyFromMap": "\t\tcase <!VarName!> = \"<!JsonKeyName!>\"\n",
+                     "fetchArrayOfCustomTypePropertyFromMap": "\t\tcase <!JsonKeyName!>\n",
                      "comment": "",
                      "fetchCustomTypePropertyFromMap": "\t\tcase <!VarName!>\n"
                      },
                      {
                      "fetchBasicTypeWithSpecialNeedsPropertyFromMap": "",
-                     "bodyStart": "{\n\t\tlet values = try decoder.container(keyedBy: CodingKeys.self)\n",                     
-                     "bodyEnd": "\t}\n",
-                     "fetchBasicTypePropertyFromMap": "\t\t<!VarName!> = try values.decodeIfPresent(<!VarType!>.self, forKey: .<!VarName!>)\n",
-                     "signature": "\tinit(from decoder: Decoder) throws ",
-                     "fetchArrayOfCustomTypePropertyFromMap": "\t\t<!VarName!> = try values.decodeIfPresent(<!VarType!>.self, forKey: .<!VarName!>)\n",
+                     "bodyStart": "",
+                     "bodyEnd": "",
+                     "fetchBasicTypePropertyFromMap": "",
+                     "signature": "",
+                     "fetchArrayOfCustomTypePropertyFromMap": "",
                      "comment": "",
-                     "fetchCustomTypePropertyFromMap": "\t\t<!VarName!> = try <!VarType!>(from: decoder)\n"
+                     "fetchCustomTypePropertyFromMap": ""
                      }
                      ],
-    "modelDefinition": "\nstruct <!ModelName!> : Codable ",
+    "modelDefinition": "\nstruct <!ModelName!>: Codable ",
     "genericType": "AnyObject",
     "getter": "",
     "setter": "",
@@ -107,9 +107,9 @@
     "basicTypesWithSpecialFetchingNeeds": [
     ],
     "displayLangName": "Swift - Struct - Codable",
-    "instanceVarDefinition": "\tlet <!VarName!> : <!VarType!>?\n",
+    "instanceVarDefinition": "\tlet <!VarName!>: <!VarType!>?\n",
     "supportsFirstLineStatement": "false",
-    "modelEnd": "\n}",
+    "modelEnd": "}",
     "staticImports": "import Foundation",
     "langName": "Swift"
 }
