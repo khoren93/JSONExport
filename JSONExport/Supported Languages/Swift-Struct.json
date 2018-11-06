@@ -107,7 +107,7 @@
     "basicTypesWithSpecialFetchingNeeds": [
     ],
     "displayLangName": "Swift - Struct",
-    "instanceVarDefinition": "\tvar <!VarName!> : <!VarType!>!\n",
+    "instanceVarDefinition": "\tvar <!VarName!>: <!VarType!>!\n",
     "supportsFirstLineStatement": "false",
     "modelEnd": "\n}",
     "staticImports": "import Foundation",
