@@ -161,7 +161,7 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
     //MARK: - Handling pre defined languages
     func loadSupportedLanguages()
     {
-        if let langFiles = Bundle.main.urls(forResourcesWithExtension: "json", subdirectory: nil) as [URL]!{
+        if let langFiles = Bundle.main.urls(forResourcesWithExtension: "json", subdirectory: nil){
             for langFile in langFiles{
                 if let data = try? Data(contentsOf: langFile), let langDictionary = (try? JSONSerialization.jsonObject(with: data, options: [])) as? NSDictionary{
                     let lang = LangModel(fromDictionary: langDictionary)
@@ -206,7 +206,7 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
                 let fileHandle = FileHandle(forReadingAtPath: jsonPath)
                 let urlStr:String  = oPanel.urls.first!.lastPathComponent
                 self.classNameField.stringValue = urlStr.replacingOccurrences(of: ".json", with: "")
-                self.parseJSONData(jsonData: (fileHandle!.readDataToEndOfFile() as NSData!) as Data!)
+                self.parseJSONData(jsonData: (fileHandle!.readDataToEndOfFile() as NSData) as Data)
 
             }
         }
@@ -386,7 +386,7 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
         saveButton.isEnabled = false
         var str = sourceText.string
         
-        if str.characters.count == 0{
+        if str.count == 0{
             runOnUiThread{
                 //Nothing to do, just clear any generated files
                 self.files.removeAll(keepingCapacity: false)
@@ -395,7 +395,7 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
             return;
         }
         var rootClassName = classNameField.stringValue
-        if rootClassName.characters.count == 0{
+        if rootClassName.count == 0{
             rootClassName = "RootClass"
         }
         sourceText.isEditable = false
@@ -409,7 +409,7 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
                     var json : NSDictionary!
                     if jsonData is NSDictionary{
                         //fine nothing to do
-                        json = jsonData as! NSDictionary
+                        json = jsonData as? NSDictionary
                     }else{
                         json = unionDictionaryFromArrayElements(jsonData as! NSArray)
                     }
