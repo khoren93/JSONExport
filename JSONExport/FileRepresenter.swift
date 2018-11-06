@@ -304,7 +304,7 @@ class FileRepresenter{
         if !includeConstructors{
             return
         }
-        fileContent += "\n"
+        fileContent += ""
         for constructor in lang.constructors{
             if constructor.comment != nil{
                 fileContent += constructor.comment
