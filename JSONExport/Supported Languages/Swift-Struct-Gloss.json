@@ -69,7 +69,7 @@
                        "forEachArrayOfCustomTypeProperty": "\t\t\"<!JsonKeyName!>\" ~~> <!VarName!>,\n",
                        "returnStatement": "\t\t])\n",
                        "body": "\t\treturn jsonify([\n",
-                       "comment": "\n\t//MARK: Encodable\n",
+                       "comment": "\t//MARK: Encodable\n",
                        "bodyStart": "{\n"
                        }
                        ],
@@ -92,13 +92,13 @@
                      "bodyStart": "{\n",
                      "bodyEnd": "\t}\n",
                      "fetchBasicTypePropertyFromMap": "\t\t<!VarName!> = \"<!JsonKeyName!>\" <~~ json\n",
-                     "signature": "\tpublic init?(json: JSON)",
+                     "signature": "\tpublic init?(json: JSON) ",
                      "fetchArrayOfCustomTypePropertyFromMap": "\t\t<!VarName!> = \"<!JsonKeyName!>\" <~~ json\n",
-                     "comment": "\n\t//MARK: Decodable\n",
+                     "comment": "\t// MARK: Decodable\n",
                      "fetchCustomTypePropertyFromMap": "\t\t<!VarName!> = \"<!JsonKeyName!>\" <~~ json\n"
                      }
                      ],
-    "modelDefinition": "\n//MARK: - <!ModelName!>\npublic struct <!ModelName!>: Glossy ",
+    "modelDefinition": "\n// MARK: - <!ModelName!>\npublic struct <!ModelName!>: Glossy ",
     "genericType": "AnyObject",
     "getter": "",
     "setter": "",
@@ -107,10 +107,10 @@
     "basicTypesWithSpecialFetchingNeeds": [
     ],
     "displayLangName": "Swift - Struct - Gloss",
-    "instanceVarDefinition": "\tpublic let <!VarName!> : <!VarType!>!\n",
+    "instanceVarDefinition": "\tpublic let <!VarName!>: <!VarType!>!\n",
     "supportsFirstLineStatement": "false",
     "modelEnd": "\n}",
-    "staticImports": "import Foundation \nimport Gloss",
+    "staticImports": "import Foundation\nimport Gloss",
     "langName": "Swift",
     "author" : {
         "name" : "CodeEagle",
