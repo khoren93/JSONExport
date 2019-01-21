@@ -76,8 +76,10 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
     var selectedLang : LangModel!
     
     //Returns the title of the selected language in the languagesPopup
+    //Call only from main thread
     var selectedLanguageName : String
     {
+        assert(Thread.isMainThread);
         return languagesPopup.titleOfSelectedItem!
     }
     
@@ -157,11 +159,10 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
         }
     }
     
-    
     //MARK: - Handling pre defined languages
     func loadSupportedLanguages()
     {
-        if let langFiles = Bundle.main.urls(forResourcesWithExtension: "json", subdirectory: nil){
+		if let langFiles = Bundle.main.urls(forResourcesWithExtension: "json", subdirectory: nil){
             for langFile in langFiles{
                 if let data = try? Data(contentsOf: langFile), let langDictionary = (try? JSONSerialization.jsonObject(with: data, options: [])) as? NSDictionary{
                     let lang = LangModel(fromDictionary: langDictionary)
@@ -170,15 +171,10 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
                     }
                     langs[lang.displayLangName] = lang
                 }
-                
-                
             }
         }
-        
     }
-    
-    
-    
+
     
     // MARK: - parse the json file
     func parseJSONData(jsonData: Data!)
@@ -190,27 +186,25 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
     
     //MARK: - Handlind events
     
-    @IBAction func openJSONFiles(sender: AnyObject)
-    {
-        let oPanel: NSOpenPanel = NSOpenPanel()
-        oPanel.canChooseDirectories = false
-        oPanel.canChooseFiles = true
-        oPanel.allowsMultipleSelection = false
-        oPanel.allowedFileTypes = ["json","JSON"]
-        oPanel.prompt = "Choose JSON file"
-
-        oPanel.beginSheetModal(for: self.view.window!) { (button) in
-            if button.rawValue == NSFileHandlingPanelOKButton{
-
-                let jsonPath = oPanel.urls.first!.path
-                let fileHandle = FileHandle(forReadingAtPath: jsonPath)
-                let urlStr:String  = oPanel.urls.first!.lastPathComponent
-                self.classNameField.stringValue = urlStr.replacingOccurrences(of: ".json", with: "")
-                self.parseJSONData(jsonData: (fileHandle!.readDataToEndOfFile() as NSData) as Data)
-
-            }
-        }
-    }
+	@IBAction func openJSONFiles(sender: AnyObject)
+	{
+		let oPanel: NSOpenPanel = NSOpenPanel()
+		oPanel.canChooseDirectories = false
+		oPanel.canChooseFiles = true
+		oPanel.allowsMultipleSelection = false
+		oPanel.allowedFileTypes = ["json","JSON"]
+		oPanel.prompt = "Choose JSON file"
+		
+		oPanel.beginSheetModal(for: self.view.window!) { button in
+			if button.rawValue == NSFileHandlingPanelOKButton {
+				let jsonPath = oPanel.urls.first!.path
+				let fileHandle = FileHandle(forReadingAtPath: jsonPath)
+				let urlStr:String  = oPanel.urls.first!.lastPathComponent
+				self.classNameField.stringValue = urlStr.replacingOccurrences(of: ".json", with: "")
+				self.parseJSONData(jsonData: (fileHandle!.readDataToEndOfFile()))
+			}
+		}
+	}
     
     
     @IBAction func toggleConstructors(_ sender: AnyObject)
@@ -244,7 +238,10 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
     {
         updateUIFieldsForSelectedLanguage()
         generateClasses()
-        UserDefaults.standard.set(selectedLanguageName, forKey: "selectedLanguage")
+        DispatchQueue.main.async {
+            UserDefaults.standard.set(self.selectedLanguageName, forKey: "selectedLanguage")
+        }
+        
     }
     
     
@@ -263,8 +260,7 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
     //MARK: - Language selection handling
     func loadSelectedLanguageModel()
     {
-        selectedLang = langs[selectedLanguageName]
-        
+       selectedLang = langs[self.selectedLanguageName]
     }
     
     
@@ -286,12 +282,12 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
         openPanel.canChooseDirectories = true
         openPanel.canCreateDirectories = true
         openPanel.prompt = "Choose"
-        openPanel.beginSheetModal(for: self.view.window!, completionHandler: { (button) -> Void in
-            if button.rawValue == NSFileHandlingPanelOKButton {
-                self.saveToPath(openPanel.url!.path)
-                self.showDoneSuccessfully()
-            }
-        })
+		openPanel.beginSheetModal(for: self.view.window!){ button in
+			if button.rawValue == NSFileHandlingPanelOKButton{
+				self.saveToPath(openPanel.url!.path)
+				self.showDoneSuccessfully()
+			}
+		}
     }
     
     
@@ -409,13 +405,14 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
                     var json : NSDictionary!
                     if jsonData is NSDictionary{
                         //fine nothing to do
-                        json = jsonData as? NSDictionary
+						json = jsonData as? NSDictionary
                     }else{
                         json = unionDictionaryFromArrayElements(jsonData as! NSArray)
                     }
-                    self.loadSelectedLanguageModel()
-                    self.files.removeAll(keepingCapacity: false)
+                    
                     runOnUiThread{
+                        self.loadSelectedLanguageModel()
+                        self.files.removeAll(keepingCapacity: false)
                         let fileGenerator = self.prepareAndGetFilesBuilder()
                         fileGenerator.addFileWithName(&rootClassName, jsonObject: json, files: &self.files)
                         fileGenerator.fixReferenceMismatches(inFiles: self.files)
@@ -453,8 +450,8 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
     func prepareAndGetFilesBuilder() -> FilesContentBuilder
     {
         let filesBuilder = FilesContentBuilder.instance
-        filesBuilder.includeConstructors = (generateConstructors.state == .on)
-        filesBuilder.includeUtilities = (generateUtilityMethods.state == .on)
+        filesBuilder.includeConstructors = (generateConstructors.state == NSControl.StateValue.on)
+        filesBuilder.includeUtilities = (generateUtilityMethods.state == NSControl.StateValue.on)
         filesBuilder.firstLine = firstLineField.stringValue
         filesBuilder.lang = selectedLang!
         filesBuilder.classPrefix = classPrefixField.stringValue
@@ -471,7 +468,7 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
     //MARK: - NSTableViewDelegate
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView?
     {
-        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "fileCell"), owner: self) as! FilePreviewCell
+        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("fileCell"), owner: self) as! FilePreviewCell
         let file = files[row]
         cell.file = file
         
@@ -479,4 +476,3 @@ class ViewController: NSViewController, NSUserNotificationCenterDelegate, NSTabl
     }
     
 }
-

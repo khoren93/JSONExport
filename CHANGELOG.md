@@ -1,3 +1,19 @@
+* Version 1.1.0
+- Merged PR #98 : fix a complier error in SwiftyJSON - Class. Thanks @superk589
+- Merged PR #99 : Migrate to Swift 4. Thanks @serhii-londar
+- Merged PR #101 : Added Codable Option to make Codable Structs with forced up-wrapped properties. Thanks @mumer92
+- Merged PR #106 : Fix Xcode build-time error : Change generic type from 'AnyObject' to 'String' -> Fixes #105. Thanks @ankushkushwaha
+- Merged PR #108 : Java Gson for Android: Fix method name. Thanks @ty0521-fss
+- Merged PR #119 : Suuport for Outlaw. Thanks @LifetimeCode
+- Merged PR #123 : Update to Swift 4.2. Thanks @BrychanOdlum
+- Fixed an issue with trying to figure the selected language from an UI element outside the UI thread
+
+
+* Version 1.0.9
+- Merged PR #88 : Fix minor typo in the README.MD file. Thanks to @AlexxNica
+- Merged PR #93 Changed app icon and fix upside down text. Thanks to @narlei
+- Merged PR #96 Adding support for Swift 4 Codable. Thanks to @kashifshaikh
+
 * Version 1.0.8
 - Merged PR #72 App now remembers what language user selected last time. Thanks to @TParizek
 - Merged PR #75 Fix Error for Swift in Xcode 8.2.1 and replace NSDictionary. Thanks to @dimohamdy

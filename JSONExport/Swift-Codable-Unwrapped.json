@@ -61,7 +61,7 @@
     "booleanGetter": "",
     "briefDescription": "Defines how your JSON objects can be mapped to Swift structures using the built-in NSJSONSerialization class",
     "utilityMethods": [
-                       ],
+    ],
     "dataTypes": {
         "stringType": "String",
         "boolType": "Bool",
@@ -80,36 +80,26 @@
                      "fetchBasicTypeWithSpecialNeedsPropertyFromMap": "",
                      "bodyStart": "{\n",
                      "body": "",
-                     "bodyEnd": "\t}",
-                     "fetchBasicTypePropertyFromMap": "\t\tcase <!JsonKeyName!>\n",
+                     "bodyEnd": "\t}\n",
+                     "fetchBasicTypePropertyFromMap": "\t\tcase <!VarName!> = \"<!JsonKeyName!>\"\n",
                      "signature": "\tenum CodingKeys: String, CodingKey ",
-                     "fetchArrayOfCustomTypePropertyFromMap": "\t\tcase <!JsonKeyName!>\n",
+                     "fetchArrayOfCustomTypePropertyFromMap": "\t\tcase <!VarName!> = \"<!JsonKeyName!>\"\n",
                      "comment": "",
                      "fetchCustomTypePropertyFromMap": "\t\tcase <!VarName!>\n"
-                     },
-                     {
-                     "fetchBasicTypeWithSpecialNeedsPropertyFromMap": "",
-                     "bodyStart": "",
-                     "bodyEnd": "",
-                     "fetchBasicTypePropertyFromMap": "",
-                     "signature": "",
-                     "fetchArrayOfCustomTypePropertyFromMap": "",
-                     "comment": "",
-                     "fetchCustomTypePropertyFromMap": ""
                      }
                      ],
     "modelDefinition": "\nstruct <!ModelName!> : Codable ",
-    "genericType": "String",
+    "genericType": "AnyObject",
     "getter": "",
     "setter": "",
     "fileExtension": "swift",
     "arrayType": "[<!ElementType!>]",
     "basicTypesWithSpecialFetchingNeeds": [
     ],
-    "displayLangName": "Swift - Struct - Codable",
-    "instanceVarDefinition": "\tlet <!VarName!>: <!VarType!>?\n",
+    "displayLangName": "Swift - Struct - Codable - Unwrapped",
+    "instanceVarDefinition": "\tlet <!VarName!> : <!VarType!>\n",
     "supportsFirstLineStatement": "false",
-    "modelEnd": "}",
+    "modelEnd": "\n}",
     "staticImports": "import Foundation",
     "langName": "Swift"
 }
